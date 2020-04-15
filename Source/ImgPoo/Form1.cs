@@ -127,6 +127,13 @@ namespace ImgPoo {
             }
         }
 
+        private void Form1_MouseWheel(object sender, MouseEventArgs e) {
+            if (e.Delta > 0)
+                zoomIn();
+            else if (e.Delta < 0)
+                zoomOut();
+        }
+
         //*////////////////////////////////////////////////////////////////////
 
         private void getFiles(string dir) {
