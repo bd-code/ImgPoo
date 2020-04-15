@@ -130,7 +130,10 @@ namespace ImgPoo {
         //*////////////////////////////////////////////////////////////////////
 
         private void getFiles(string dir) {
-            var exts = new List<string> { ".bmp", ".gif", ".jpg", ".jpeg", ".png" };
+            var exts = new List<string> {
+                ".bmp", ".gif",
+                ".ico", ".jpg", ".jpeg",
+                ".png", ".tif", ".tiff" };
             _imagefiles = new List<string>(
                 Directory.EnumerateFiles(dir)
                 .Where(s => exts.Contains(Path.GetExtension(s).ToLowerInvariant()))

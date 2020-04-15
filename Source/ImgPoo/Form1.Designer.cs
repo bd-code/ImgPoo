@@ -33,6 +33,7 @@
             this.zoomInToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.zoomOutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.resetZoomToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.changeBGColorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toggleStatusBarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusBar = new System.Windows.Forms.StatusStrip();
             this.filePathStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
@@ -41,7 +42,6 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.imgPanel = new System.Windows.Forms.Panel();
-            this.changeBGColorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             ((System.ComponentModel.ISupportInitialize)(this.imgBox)).BeginInit();
             this.menuBar.SuspendLayout();
@@ -52,7 +52,7 @@
             // imgBox
             // 
             this.imgBox.Location = new System.Drawing.Point(0, 0);
-            this.imgBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.imgBox.Margin = new System.Windows.Forms.Padding(4);
             this.imgBox.Name = "imgBox";
             this.imgBox.Size = new System.Drawing.Size(40, 40);
             this.imgBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -70,7 +70,7 @@
             this.menuBar.Location = new System.Drawing.Point(0, 0);
             this.menuBar.Name = "menuBar";
             this.menuBar.Padding = new System.Windows.Forms.Padding(8, 2, 0, 2);
-            this.menuBar.Size = new System.Drawing.Size(980, 28);
+            this.menuBar.Size = new System.Drawing.Size(782, 28);
             this.menuBar.TabIndex = 1;
             this.menuBar.Text = "menuStrip1";
             // 
@@ -114,28 +114,35 @@
             // zoomInToolStripMenuItem
             // 
             this.zoomInToolStripMenuItem.Name = "zoomInToolStripMenuItem";
-            this.zoomInToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.zoomInToolStripMenuItem.Size = new System.Drawing.Size(201, 26);
             this.zoomInToolStripMenuItem.Text = "Zoom In";
             this.zoomInToolStripMenuItem.Click += new System.EventHandler(this.zoomInToolStripMenuItem_Click);
             // 
             // zoomOutToolStripMenuItem
             // 
             this.zoomOutToolStripMenuItem.Name = "zoomOutToolStripMenuItem";
-            this.zoomOutToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.zoomOutToolStripMenuItem.Size = new System.Drawing.Size(201, 26);
             this.zoomOutToolStripMenuItem.Text = "Zoom Out";
             this.zoomOutToolStripMenuItem.Click += new System.EventHandler(this.zoomOutToolStripMenuItem_Click);
             // 
             // resetZoomToolStripMenuItem
             // 
             this.resetZoomToolStripMenuItem.Name = "resetZoomToolStripMenuItem";
-            this.resetZoomToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.resetZoomToolStripMenuItem.Size = new System.Drawing.Size(201, 26);
             this.resetZoomToolStripMenuItem.Text = "Reset Zoom";
             this.resetZoomToolStripMenuItem.Click += new System.EventHandler(this.resetZoomToolStripMenuItem_Click);
+            // 
+            // changeBGColorToolStripMenuItem
+            // 
+            this.changeBGColorToolStripMenuItem.Name = "changeBGColorToolStripMenuItem";
+            this.changeBGColorToolStripMenuItem.Size = new System.Drawing.Size(201, 26);
+            this.changeBGColorToolStripMenuItem.Text = "Change BG Color";
+            this.changeBGColorToolStripMenuItem.Click += new System.EventHandler(this.changeBGColorToolStripMenuItem_Click);
             // 
             // toggleStatusBarToolStripMenuItem
             // 
             this.toggleStatusBarToolStripMenuItem.Name = "toggleStatusBarToolStripMenuItem";
-            this.toggleStatusBarToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.toggleStatusBarToolStripMenuItem.Size = new System.Drawing.Size(201, 26);
             this.toggleStatusBarToolStripMenuItem.Text = "Toggle Status Bar";
             this.toggleStatusBarToolStripMenuItem.Click += new System.EventHandler(this.toggleStatusBarToolStripMenuItem_Click);
             // 
@@ -146,10 +153,10 @@
             this.filePathStatusLabel,
             this.sizeStatusLabel,
             this.zoomStatusLabel});
-            this.statusBar.Location = new System.Drawing.Point(0, 1026);
+            this.statusBar.Location = new System.Drawing.Point(0, 824);
             this.statusBar.Name = "statusBar";
             this.statusBar.Padding = new System.Windows.Forms.Padding(1, 0, 18, 0);
-            this.statusBar.Size = new System.Drawing.Size(980, 29);
+            this.statusBar.Size = new System.Drawing.Size(782, 29);
             this.statusBar.TabIndex = 2;
             this.statusBar.Text = "statusStrip1";
             // 
@@ -157,7 +164,7 @@
             // 
             this.filePathStatusLabel.BackColor = System.Drawing.SystemColors.Control;
             this.filePathStatusLabel.Name = "filePathStatusLabel";
-            this.filePathStatusLabel.Size = new System.Drawing.Size(846, 24);
+            this.filePathStatusLabel.Size = new System.Drawing.Size(648, 24);
             this.filePathStatusLabel.Spring = true;
             this.filePathStatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -190,17 +197,10 @@
             this.imgPanel.Controls.Add(this.imgBox);
             this.imgPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.imgPanel.Location = new System.Drawing.Point(0, 28);
-            this.imgPanel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.imgPanel.Margin = new System.Windows.Forms.Padding(4);
             this.imgPanel.Name = "imgPanel";
-            this.imgPanel.Size = new System.Drawing.Size(980, 998);
+            this.imgPanel.Size = new System.Drawing.Size(782, 796);
             this.imgPanel.TabIndex = 3;
-            // 
-            // changeBGColorToolStripMenuItem
-            // 
-            this.changeBGColorToolStripMenuItem.Name = "changeBGColorToolStripMenuItem";
-            this.changeBGColorToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
-            this.changeBGColorToolStripMenuItem.Text = "Change BG Color";
-            this.changeBGColorToolStripMenuItem.Click += new System.EventHandler(this.changeBGColorToolStripMenuItem_Click);
             // 
             // colorDialog1
             // 
@@ -213,14 +213,15 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoScroll = true;
             this.BackColor = System.Drawing.SystemColors.WindowFrame;
-            this.ClientSize = new System.Drawing.Size(980, 1055);
+            this.ClientSize = new System.Drawing.Size(782, 853);
             this.Controls.Add(this.imgPanel);
             this.Controls.Add(this.statusBar);
             this.Controls.Add(this.menuBar);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuBar;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
+            this.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ImgPoo";
             this.Load += new System.EventHandler(this.Form1_Load);
