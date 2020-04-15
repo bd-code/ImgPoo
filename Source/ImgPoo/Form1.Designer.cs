@@ -226,6 +226,7 @@
             this.Text = "ImgPoo";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
+            this.MouseWheel += new System.Windows.Forms.MouseEventHandler(Form1_MouseWheel);
             this.Resize += new System.EventHandler(this.Form1_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.imgBox)).EndInit();
             this.menuBar.ResumeLayout(false);

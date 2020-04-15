@@ -10,4 +10,4 @@ ideal for viewing spritesheets and other pixel art.
 #### Some Useful Notes:
 - Supported Types: BMP, GIF, ICO, JPG/JPEG, PNG, TIF/TIFF.
 - Next/Previous: Right/Left keys.
-- Zoom: Up/Down keys. Up to 8x pixel-precision, non-anti-aliased Zoom.
+- Zoom: Up/Down keys or mousewheel. Up to 8x pixel-precision, non-anti-aliased Zoom.
