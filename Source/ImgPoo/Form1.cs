@@ -148,6 +148,8 @@ namespace ImgPoo {
         }
 
         private void changeImage(string filename) {
+            if (_img is Bitmap)
+                _img.Dispose();
             _img = new Bitmap(filename);
             filePathStatusLabel.Text = filename;
             sizeStatusLabel.Text = "Size: " + _img.Width + " x " + _img.Height + "";
