@@ -1,4 +1,6 @@
-﻿namespace ImgPoo {
+﻿using System.Windows.Forms;
+
+namespace ImgPoo {
     partial class Form1 {
         /// <summary>
         /// Required designer variable.
@@ -26,10 +28,10 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.imgBox = new System.Windows.Forms.PictureBox();
             this.menuBar = new System.Windows.Forms.MenuStrip();
-            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fileMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openImageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openDirectoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.zoomInToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.zoomOutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.resetZoomToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -62,10 +64,11 @@
             // 
             // menuBar
             // 
+            this.menuBar.BackColor = System.Drawing.SystemColors.Control;
             this.menuBar.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem,
-            this.viewToolStripMenuItem});
+            this.fileMenuItem,
+            this.viewMenuItem});
             this.menuBar.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
             this.menuBar.Location = new System.Drawing.Point(0, 0);
             this.menuBar.Name = "menuBar";
@@ -74,15 +77,16 @@
             this.menuBar.TabIndex = 1;
             this.menuBar.Text = "menuStrip1";
             // 
-            // fileToolStripMenuItem
+            // fileMenuItem
             // 
-            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.openImageToolStripMenuItem,
             this.openDirectoryToolStripMenuItem});
-            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F)));
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(44, 24);
-            this.fileToolStripMenuItem.Text = "&File";
+            this.fileMenuItem.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.fileMenuItem.Name = "fileMenuItem";
+            this.fileMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F)));
+            this.fileMenuItem.Size = new System.Drawing.Size(44, 24);
+            this.fileMenuItem.Text = "&File";
             // 
             // openImageToolStripMenuItem
             // 
@@ -98,18 +102,19 @@
             this.openDirectoryToolStripMenuItem.Text = "Open Directory";
             this.openDirectoryToolStripMenuItem.Click += new System.EventHandler(this.openDirectoryToolStripMenuItem_Click);
             // 
-            // viewToolStripMenuItem
+            // viewMenuItem
             // 
-            this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.viewMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.zoomInToolStripMenuItem,
             this.zoomOutToolStripMenuItem,
             this.resetZoomToolStripMenuItem,
             this.changeBGColorToolStripMenuItem,
             this.toggleStatusBarToolStripMenuItem});
-            this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
-            this.viewToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
-            this.viewToolStripMenuItem.Size = new System.Drawing.Size(53, 24);
-            this.viewToolStripMenuItem.Text = "&View";
+            this.viewMenuItem.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.viewMenuItem.Name = "viewMenuItem";
+            this.viewMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
+            this.viewMenuItem.Size = new System.Drawing.Size(53, 24);
+            this.viewMenuItem.Text = "&View";
             // 
             // zoomInToolStripMenuItem
             // 
@@ -148,6 +153,7 @@
             // 
             // statusBar
             // 
+            this.statusBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(16)))), ((int)(((byte)(16)))));
             this.statusBar.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.statusBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.filePathStatusLabel,
@@ -163,8 +169,9 @@
             // filePathStatusLabel
             // 
             this.filePathStatusLabel.BackColor = System.Drawing.SystemColors.Control;
+            this.filePathStatusLabel.ForeColor = System.Drawing.SystemColors.Control;
             this.filePathStatusLabel.Name = "filePathStatusLabel";
-            this.filePathStatusLabel.Size = new System.Drawing.Size(648, 24);
+            this.filePathStatusLabel.Size = new System.Drawing.Size(609, 24);
             this.filePathStatusLabel.Spring = true;
             this.filePathStatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -172,15 +179,16 @@
             // 
             this.sizeStatusLabel.BackColor = System.Drawing.SystemColors.Control;
             this.sizeStatusLabel.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left;
+            this.sizeStatusLabel.ForeColor = System.Drawing.SystemColors.Control;
             this.sizeStatusLabel.Name = "sizeStatusLabel";
             this.sizeStatusLabel.Size = new System.Drawing.Size(55, 24);
             this.sizeStatusLabel.Text = "Size:   ";
-            this.sizeStatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // zoomStatusLabel
             // 
             this.zoomStatusLabel.BackColor = System.Drawing.SystemColors.Control;
             this.zoomStatusLabel.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left;
+            this.zoomStatusLabel.ForeColor = System.Drawing.SystemColors.Control;
             this.zoomStatusLabel.Name = "zoomStatusLabel";
             this.zoomStatusLabel.Size = new System.Drawing.Size(60, 24);
             this.zoomStatusLabel.Text = "Zoom: ";
@@ -226,7 +234,7 @@
             this.Text = "ImgPoo";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
-            this.MouseWheel += new System.Windows.Forms.MouseEventHandler(Form1_MouseWheel);
+            this.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseWheel);
             this.Resize += new System.EventHandler(this.Form1_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.imgBox)).EndInit();
             this.menuBar.ResumeLayout(false);
@@ -241,10 +249,27 @@
 
         #endregion
 
+        /// <summary>
+        /// For custom things the editor shouldn't overwrite in
+        /// InitializeComponent().
+        /// </summary>
+        private void CustomizeComponent() {
+            menuBar.BackColor = System.Drawing.Color.FromArgb(16, 16, 16);
+            ToolStripManager.Renderer = new ToolStripProfessionalRenderer(new ColorTable());
+            
+            foreach (ToolStripMenuItem itm in menuBar.Items) {
+                itm.ForeColor = System.Drawing.Color.FromArgb(248, 248, 248);
+                ToolStripDropDownMenu dd = itm.DropDown as ToolStripDropDownMenu;
+                dd.ShowImageMargin = false;
+                dd.BackColor = System.Drawing.Color.FromArgb(16, 16, 16);
+                dd.ForeColor = System.Drawing.Color.FromArgb(248, 248, 248);
+            }
+        }
+
         private System.Windows.Forms.PictureBox imgBox;
         private System.Windows.Forms.MenuStrip menuBar;
-        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem fileMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem viewMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openImageToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openDirectoryToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem zoomInToolStripMenuItem;

@@ -24,6 +24,7 @@ namespace ImgPoo {
             _imgChanged = false;
 
             InitializeComponent();
+            CustomizeComponent();
 
             openFileDialog1.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
             folderBrowserDialog1.SelectedPath = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
@@ -128,10 +129,13 @@ namespace ImgPoo {
         }
 
         private void Form1_MouseWheel(object sender, MouseEventArgs e) {
+            /* 
+            We're not doing zoom on scroll anymore.
+            Should use scrollbar instead.
             if (e.Delta > 0)
                 zoomIn();
             else if (e.Delta < 0)
-                zoomOut();
+                zoomOut();*/
         }
 
         //*////////////////////////////////////////////////////////////////////
@@ -208,13 +212,13 @@ namespace ImgPoo {
             if (_img is Bitmap) {
                 int imgWidth = _img.Width * _zoomLevel;
                 int imgHeight = _img.Height * _zoomLevel;
+                imgBox.Width = imgWidth;
+                imgBox.Height = imgHeight;
 
                 imgBox.Location = new Point(
                     Math.Max((Width - imgWidth) / 2, 0),
                     Math.Max((Height - imgHeight) / 2, 0 + menuBar.Size.Height)
                     );
-                imgBox.Width = imgWidth;
-                imgBox.Height = imgHeight;
             }
         }
 
