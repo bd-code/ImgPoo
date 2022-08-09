@@ -26,8 +26,8 @@ namespace ImgPoo {
             InitializeComponent();
             CustomizeComponent();
 
-            openFileDialog1.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
-            folderBrowserDialog1.SelectedPath = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
+            fileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
+            folderDialog.SelectedPath = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
         }
 
         private void Form1_Load(object sender, EventArgs e) {
@@ -41,28 +41,28 @@ namespace ImgPoo {
                 }
             }
 
-            zoomStatusLabel.Text = "Zoom: " + _zoomLevel.ToString();
+            statsZoom.Text = "Zoom: " + _zoomLevel.ToString();
         }
 
         private void openImageToolStripMenuItem_Click(object sender, EventArgs e) {
-            openFileDialog1.ShowDialog();
-            if (File.Exists(openFileDialog1.FileName)) {
-                string path = Path.GetDirectoryName(openFileDialog1.FileName);
-                openFileDialog1.InitialDirectory = path;
+            fileDialog.ShowDialog();
+            if (File.Exists(fileDialog.FileName)) {
+                string path = Path.GetDirectoryName(fileDialog.FileName);
+                fileDialog.InitialDirectory = path;
                 getFiles(path);
 
-                if (isValidImage(openFileDialog1.FileName)) {
-                    _dirIndex = _imagefiles.IndexOf(openFileDialog1.FileName);
-                    changeImage(openFileDialog1.FileName);
+                if (isValidImage(fileDialog.FileName)) {
+                    _dirIndex = _imagefiles.IndexOf(fileDialog.FileName);
+                    changeImage(fileDialog.FileName);
                 }
 
             }
         }
 
         private void openDirectoryToolStripMenuItem_Click(object sender, EventArgs e) {
-            folderBrowserDialog1.ShowDialog();
-            if (Directory.Exists(folderBrowserDialog1.SelectedPath)) {
-                getFiles(folderBrowserDialog1.SelectedPath);
+            folderDialog.ShowDialog();
+            if (Directory.Exists(folderDialog.SelectedPath)) {
+                getFiles(folderDialog.SelectedPath);
 
                 if (_imagefiles.Count > 0 && isValidImage(_imagefiles[0])) {
                     _dirIndex = 0;
@@ -92,7 +92,8 @@ namespace ImgPoo {
             e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
 
             if (_imgChanged) {
-                resetImgBox();
+                resizeImgBox();
+                centerImgBox();
                 _imgChanged = false;
             }
 
@@ -109,23 +110,21 @@ namespace ImgPoo {
         }
 
         private void Form1_Resize(object sender, EventArgs e) {
-            resetImgBox();
+            centerImgBox();
             imgBox.Refresh();
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e) {
-            if (e.KeyCode == Keys.Up) {
-                zoomIn();
-            }
-            else if (e.KeyCode == Keys.Down) {
-                zoomOut();
-            }
-            else if (e.KeyCode == Keys.Right) {
-                nextImage();
-            }
-            else if (e.KeyCode == Keys.Left) {
-                prevImage();
-            }
+            if (e.KeyCode == Keys.Up)
+                zoomIn();            
+            else if (e.KeyCode == Keys.Down)
+                zoomOut();            
+            else if (e.KeyCode == Keys.D0 || e.KeyCode == Keys.NumPad0)
+                zoomReset();
+            else if (e.KeyCode == Keys.Right)
+                nextImage();            
+            else if (e.KeyCode == Keys.Left)
+                prevImage();            
         }
 
         private void Form1_MouseWheel(object sender, MouseEventArgs e) {
@@ -138,10 +137,15 @@ namespace ImgPoo {
                 zoomOut();*/
         }
 
+        private void changeBGColorToolStripMenuItem_Click(object sender, EventArgs e) {
+            colorDialog.ShowDialog();
+            imgPanel.BackColor = colorDialog.Color;
+        }
+
         //*////////////////////////////////////////////////////////////////////
 
         private void getFiles(string dir) {
-            var exts = new List<string> {
+            var exts = new string[] {
                 ".bmp", ".gif",
                 ".ico", ".jpg", ".jpeg",
                 ".png", ".tif", ".tiff" };
@@ -155,10 +159,10 @@ namespace ImgPoo {
             if (_img is Bitmap)
                 _img.Dispose();
             _img = new Bitmap(filename);
-            filePathStatusLabel.Text = filename;
-            sizeStatusLabel.Text = "Size: " + _img.Width + " x " + _img.Height + "";
+            statsFilePath.Text = filename;
+            statsSize.Text = "Size: " + _img.Width + " x " + _img.Height + "";
             _zoomLevel = 1;
-            zoomStatusLabel.Text = "Zoom: " + _zoomLevel.ToString();
+            statsZoom.Text = "Zoom: " + _zoomLevel.ToString();
             _imgChanged = true;
             imgBox.Refresh();
         }
@@ -189,42 +193,41 @@ namespace ImgPoo {
 
         private void zoomIn() {
             _zoomLevel = (_zoomLevel < 8) ? _zoomLevel+1 : _zoomLevel;
-            zoomStatusLabel.Text = "Zoom: " + _zoomLevel.ToString();
-            resetImgBox();
+            statsZoom.Text = "Zoom: " + _zoomLevel.ToString();
+            resizeImgBox();
             imgBox.Refresh();
         }
 
         private void zoomOut() {
             _zoomLevel = (_zoomLevel > 1) ? _zoomLevel-1 : _zoomLevel;
-            zoomStatusLabel.Text = "Zoom: " + _zoomLevel.ToString();
-            resetImgBox();
+            statsZoom.Text = "Zoom: " + _zoomLevel.ToString();
+            resizeImgBox();
             imgBox.Refresh();
         }
 
         private void zoomReset() {
             _zoomLevel = 1;
-            zoomStatusLabel.Text = "Zoom: " + _zoomLevel.ToString();
-            resetImgBox();
+            statsZoom.Text = "Zoom: " + _zoomLevel.ToString();
+            resizeImgBox();
             imgBox.Refresh();
         }
 
-        private void resetImgBox() {
+        private void centerImgBox() {
             if (_img is Bitmap) {
-                int imgWidth = _img.Width * _zoomLevel;
-                int imgHeight = _img.Height * _zoomLevel;
-                imgBox.Width = imgWidth;
-                imgBox.Height = imgHeight;
-
                 imgBox.Location = new Point(
-                    Math.Max((Width - imgWidth) / 2, 0),
-                    Math.Max((Height - imgHeight) / 2, 0 + menuBar.Size.Height)
+                    Math.Max((Width - imgBox.Width) / 2, 0),
+                    Math.Max((Height - imgBox.Height) / 2, 0 + menuBar.Size.Height)
                     );
             }
         }
 
-        private void changeBGColorToolStripMenuItem_Click(object sender, EventArgs e) {
-            colorDialog1.ShowDialog();
-            imgPanel.BackColor = colorDialog1.Color;
+        private void resizeImgBox() {
+            if (_img is Bitmap) {
+                int imgWidth = _img.Width * _zoomLevel;
+                int imgHeight = _img.Height * _zoomLevel;
+                imgBox.Width = imgWidth;
+                imgBox.Height = imgHeight;                
+            }
         }
     }
 }
