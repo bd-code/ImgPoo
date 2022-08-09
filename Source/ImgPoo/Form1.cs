@@ -12,16 +12,15 @@ namespace ImgPoo {
         private Bitmap _img;
         private List<string> _imagefiles;
         private int _dirIndex;
-
         private int _zoomLevel;
-        private bool _imgChanged;
+
+        private bool _isDragging;
+        private Point _startDrag;
 
         public Form1() {
             _imagefiles = new List<string>();
             _dirIndex = 0;
-
             _zoomLevel = 1;
-            _imgChanged = false;
 
             InitializeComponent();
             CustomizeComponent();
@@ -91,20 +90,9 @@ namespace ImgPoo {
             e.Graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
             e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
 
-            if (_imgChanged) {
-                resizeImgBox();
-                centerImgBox();
-                _imgChanged = false;
-            }
-
             if (_img is Bitmap) {
-                Rectangle rect = new Rectangle(
-                    0,
-                    0,
-                    imgBox.Width,
-                    imgBox.Height);
+                Rectangle rect = new Rectangle(0, 0, imgBox.Width, imgBox.Height);
                 e.Graphics.DrawImage(_img, rect);
-
                 menuBar.BringToFront();
             }
         }
@@ -127,19 +115,39 @@ namespace ImgPoo {
                 prevImage();            
         }
 
-        private void Form1_MouseWheel(object sender, MouseEventArgs e) {
-            /* 
-            We're not doing zoom on scroll anymore.
-            Should use scrollbar instead.
-            if (e.Delta > 0)
-                zoomIn();
-            else if (e.Delta < 0)
-                zoomOut();*/
-        }
-
         private void changeBGColorToolStripMenuItem_Click(object sender, EventArgs e) {
             colorDialog.ShowDialog();
             imgPanel.BackColor = colorDialog.Color;
+        }
+
+        // Img Dragging
+
+        private void imgBox_MouseDown(object sender, MouseEventArgs e) {
+            bool imgOutsizesPanel = imgBox.Size.Width > imgPanel.Size.Width || imgBox.Size.Height > imgPanel.Size.Height;
+            if (e.Button == MouseButtons.Left && imgOutsizesPanel) {
+                _isDragging = true;
+                _startDrag = e.Location;
+            }
+        }
+
+        private void imgBox_MouseMove(object sender, MouseEventArgs e) {
+            if (_isDragging) {
+                Point p = imgBox.Location;
+
+                // Clamp
+                if (imgBox.Size.Width > imgPanel.Size.Width) {
+                    p.X = imgBox.Location.X + (e.Location.X - _startDrag.X);
+                }
+                if (imgBox.Size.Height > imgPanel.Size.Height) {
+                    p.Y = imgBox.Location.Y + (e.Location.Y - _startDrag.Y);
+                }
+
+                imgBox.Location = clampPosition(p);
+            }
+        }
+
+        private void imgBox_MouseUp(object sender, MouseEventArgs e) {
+            _isDragging = false;
         }
 
         //*////////////////////////////////////////////////////////////////////
@@ -159,11 +167,14 @@ namespace ImgPoo {
             if (_img is Bitmap)
                 _img.Dispose();
             _img = new Bitmap(filename);
+
             statsFilePath.Text = filename;
-            statsSize.Text = "Size: " + _img.Width + " x " + _img.Height + "";
             _zoomLevel = 1;
+            statsSize.Text = "Size: " + _img.Width + " x " + _img.Height + "";
             statsZoom.Text = "Zoom: " + _zoomLevel.ToString();
-            _imgChanged = true;
+
+            resizeImgBox();
+            centerImgBox();
             imgBox.Refresh();
         }
 
@@ -171,7 +182,7 @@ namespace ImgPoo {
             try {
                 Image.FromFile(filename);
             }
-            catch (OutOfMemoryException ex) {
+            catch (Exception ex) {
                 return false;
             }
             return true;
@@ -192,24 +203,50 @@ namespace ImgPoo {
         }
 
         private void zoomIn() {
+            Point f = getFocusPoint();
             _zoomLevel = (_zoomLevel < 8) ? _zoomLevel+1 : _zoomLevel;
             statsZoom.Text = "Zoom: " + _zoomLevel.ToString();
             resizeImgBox();
+            setFocusPoint(f);
             imgBox.Refresh();
         }
 
         private void zoomOut() {
+            Point f = getFocusPoint();
             _zoomLevel = (_zoomLevel > 1) ? _zoomLevel-1 : _zoomLevel;
             statsZoom.Text = "Zoom: " + _zoomLevel.ToString();
             resizeImgBox();
+            setFocusPoint(f);
             imgBox.Refresh();
         }
 
         private void zoomReset() {
+            Point f = getFocusPoint();
             _zoomLevel = 1;
             statsZoom.Text = "Zoom: " + _zoomLevel.ToString();
             resizeImgBox();
+            setFocusPoint(f);
             imgBox.Refresh();
+        }
+
+        /// <summary>
+        /// Returns the point of the unzoomed image in the center of the viewport.
+        /// </summary>
+        /// <returns>Point: point of image at center of viewport.</returns>
+        private Point getFocusPoint() {
+            return new Point(
+                (-imgBox.Location.X + (imgPanel.Width / 2)) / _zoomLevel,
+                (-imgBox.Location.Y + (imgPanel.Height / 2)) / _zoomLevel
+                );
+        }
+
+        private void setFocusPoint(Point focus) {
+            Point zf = new Point(focus.X * _zoomLevel, focus.Y * _zoomLevel);
+            Point pos = new Point(
+                -zf.X + (imgPanel.Width / 2),
+                -zf.Y + (imgPanel.Height / 2)
+                );
+            imgBox.Location = clampPosition(pos);
         }
 
         private void centerImgBox() {
@@ -223,11 +260,21 @@ namespace ImgPoo {
 
         private void resizeImgBox() {
             if (_img is Bitmap) {
-                int imgWidth = _img.Width * _zoomLevel;
-                int imgHeight = _img.Height * _zoomLevel;
-                imgBox.Width = imgWidth;
-                imgBox.Height = imgHeight;                
+                imgBox.Width = _img.Width * _zoomLevel;
+                imgBox.Height = _img.Height * _zoomLevel;                
             }
+        }
+
+        private Point clampPosition(Point p) {
+            if (imgBox.Size.Width > imgPanel.Size.Width) {
+                p.X = Math.Min(p.X, 1);
+                p.X = Math.Max(p.X, imgPanel.Width - imgBox.Width);
+            }
+            if (imgBox.Size.Height > imgPanel.Size.Height) {
+                p.Y = Math.Min(p.Y, menuBar.Size.Height);
+                p.Y = Math.Max(p.Y, imgPanel.Height - imgBox.Height);
+            }
+            return p;
         }
     }
 }

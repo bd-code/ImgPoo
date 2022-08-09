@@ -60,6 +60,9 @@ namespace ImgPoo {
             this.imgBox.TabIndex = 0;
             this.imgBox.TabStop = false;
             this.imgBox.Paint += new System.Windows.Forms.PaintEventHandler(this.imgBox_Paint);
+            this.imgBox.MouseDown += new System.Windows.Forms.MouseEventHandler(this.imgBox_MouseDown);
+            this.imgBox.MouseMove += new System.Windows.Forms.MouseEventHandler(this.imgBox_MouseMove);
+            this.imgBox.MouseUp += new System.Windows.Forms.MouseEventHandler(this.imgBox_MouseUp);
             // 
             // menuBar
             // 
@@ -89,14 +92,14 @@ namespace ImgPoo {
             // openImageToolStripMenuItem
             // 
             this.openImageToolStripMenuItem.Name = "openImageToolStripMenuItem";
-            this.openImageToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.openImageToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
             this.openImageToolStripMenuItem.Text = "Open Image";
             this.openImageToolStripMenuItem.Click += new System.EventHandler(this.openImageToolStripMenuItem_Click);
             // 
             // openDirectoryToolStripMenuItem
             // 
             this.openDirectoryToolStripMenuItem.Name = "openDirectoryToolStripMenuItem";
-            this.openDirectoryToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.openDirectoryToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
             this.openDirectoryToolStripMenuItem.Text = "Open Directory";
             this.openDirectoryToolStripMenuItem.Click += new System.EventHandler(this.openDirectoryToolStripMenuItem_Click);
             // 
@@ -197,7 +200,6 @@ namespace ImgPoo {
             // 
             // imgPanel
             // 
-            this.imgPanel.AutoScroll = true;
             this.imgPanel.BackColor = System.Drawing.Color.Black;
             this.imgPanel.Controls.Add(this.imgBox);
             this.imgPanel.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -229,7 +231,6 @@ namespace ImgPoo {
             this.Text = "ImgPoo";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
-            this.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseWheel);
             this.Resize += new System.EventHandler(this.Form1_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.imgBox)).EndInit();
             this.menuBar.ResumeLayout(false);
