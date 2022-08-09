@@ -122,9 +122,8 @@ namespace ImgPoo {
 
         // Img Dragging
 
-        private void imgBox_MouseDown(object sender, MouseEventArgs e) {
-            bool imgOutsizesPanel = imgBox.Size.Width > imgPanel.Size.Width || imgBox.Size.Height > imgPanel.Size.Height;
-            if (e.Button == MouseButtons.Left && imgOutsizesPanel) {
+        private void imgBox_MouseDown(object sender, MouseEventArgs e) {            
+            if (e.Button == MouseButtons.Left && imgOutsizesPanel()) {
                 _isDragging = true;
                 _startDrag = e.Location;
             }
@@ -229,6 +228,8 @@ namespace ImgPoo {
             imgBox.Refresh();
         }
 
+        bool imgOutsizesPanel() => imgBox.Size.Width > imgPanel.Size.Width || imgBox.Size.Height > imgPanel.Size.Height;
+
         /// <summary>
         /// Returns the point of the unzoomed image in the center of the viewport.
         /// </summary>
@@ -252,8 +253,8 @@ namespace ImgPoo {
         private void centerImgBox() {
             if (_img is Bitmap) {
                 imgBox.Location = new Point(
-                    Math.Max((Width - imgBox.Width) / 2, 0),
-                    Math.Max((Height - imgBox.Height) / 2, 0 + menuBar.Size.Height)
+                    Math.Max((imgPanel.Width - imgBox.Width) / 2, 0),
+                    Math.Max((imgPanel.Height - imgBox.Height) / 2, 0 + menuBar.Size.Height)
                     );
             }
         }
