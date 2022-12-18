@@ -171,6 +171,7 @@ namespace ImgPoo {
             _zoomLevel = 1;
             statsSize.Text = "Size: " + _img.Width + " x " + _img.Height + "";
             statsZoom.Text = "Zoom: " + _zoomLevel.ToString();
+            menuBar.BringToFront();
 
             resizeImgBox();
             centerImgBox();
