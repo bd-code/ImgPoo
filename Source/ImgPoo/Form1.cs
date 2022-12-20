@@ -82,8 +82,15 @@ namespace ImgPoo {
             zoomReset();
         }
 
+        private void changeBGColorToolStripMenuItem_Click(object sender, EventArgs e) {
+            colorDialog.ShowDialog();
+            imgPanel.BackColor = colorDialog.Color;
+        }
+
         private void toggleStatusBarToolStripMenuItem_Click(object sender, EventArgs e) {
             statusBar.Visible = !statusBar.Visible;
+            if (imgBox.Size.Height <= imgPanel.Size.Height)
+                centerImgBox();
         }
 
         private void imgBox_Paint(object sender, PaintEventArgs e) {
@@ -114,11 +121,6 @@ namespace ImgPoo {
                 nextImage();            
             else if (e.KeyCode == Keys.Left)
                 prevImage();            
-        }
-
-        private void changeBGColorToolStripMenuItem_Click(object sender, EventArgs e) {
-            colorDialog.ShowDialog();
-            imgPanel.BackColor = colorDialog.Color;
         }
 
         // Img Dragging
@@ -230,7 +232,7 @@ namespace ImgPoo {
             imgBox.Refresh();
         }
 
-        bool imgOutsizesPanel() => imgBox.Size.Width > imgPanel.Size.Width || imgBox.Size.Height > imgPanel.Size.Height;
+        private bool imgOutsizesPanel() => imgBox.Size.Width > imgPanel.Size.Width || imgBox.Size.Height > imgPanel.Size.Height;
 
         /// <summary>
         /// Returns the point of the unzoomed image in the center of the viewport.
