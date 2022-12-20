@@ -88,6 +88,7 @@ namespace ImgPoo {
 
         private void imgBox_Paint(object sender, PaintEventArgs e) {
             e.Graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.NearestNeighbor;
+            e.Graphics.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
             e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
 
             if (_img is Bitmap) {
